@@ -5,3 +5,4 @@ RUN npm install
 COPY . .
 RUN npm install -g @angular/cli
 RUN ng build
+EXPOSE 80
