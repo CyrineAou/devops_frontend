@@ -1,9 +1,15 @@
 FROM node:20 as build
-WORKDIR /app
-COPY package*.json ./
+
+WORKDIR /usr/local/app
+
+COPY ./ /usr/local/app/
+
 RUN npm install
-COPY . .
-RUN npm install -g @angular/cli
-RUN ng build
+
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /usr/local/app/dist/summer-workshop-angular /usr/share/nginx/html
+
 EXPOSE 80
-CMD ["npm", "start"]
